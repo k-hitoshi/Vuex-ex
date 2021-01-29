@@ -1,5 +1,6 @@
 const ss = SpreadsheetApp.getActive();
 const authToken = 'xxxxx';
+const ymReg = /^[0-9]{4}-(0[1-9]|1[0-2])$/;
 
 //◆リクエスト対応（response）
 function response (content) {
@@ -50,7 +51,6 @@ function doPost (e) {
 /**◆◆ --- API --- ◆◆*/
 //◆onGet
 function onGet ({ yearMonth }) {
-  const ymReg = /^[0-9]{4}-(0[1-9]|1[0-2])$/;
   if (!ymReg.test(yearMonth)) {
     return {
       error: '正しい形式で入力してください'
@@ -95,7 +95,6 @@ function onPost ({ item }) {
 
 //◆onDelete
 function onDelete ({ yearMonth, id }) {
-  const ymReg = /^[0-9]{4}-(0[1-9]|1[0-2])$/;
   const sheet = ss.getSheetByName(yearMonth);
   if (!ymReg.test(yearMonth) || sheet === null) {
     return {
@@ -117,7 +116,6 @@ function onDelete ({ yearMonth, id }) {
 
 //◆onPut
 function onPut ({ beforeYM, item }) {
-  const ymReg = /^[0-9]{4}-(0[1-9]|1[0-2])$/;
   if (!ymReg.test(beforeYM) || !isValid(item)) {
     return {
       error: '正しい形式で入力してください'
